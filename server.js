@@ -1,16 +1,15 @@
-var http = require('http');
-
+var connect = require('connect');
+var app = require('connect')();
 
 var htmldoc =  "<CENTER><h1>HELLO WORLD</h1>"
              +"<p>Simple request and response page</p></CENTER>"
 
+var helloWorld = function(req, res, next) {
+                                          res.setHeader('Content-Type', 'text/html');
+                                          res.end(htmldoc);
+                                        };
+app.use(helloWorld);
 
-http.createServer(function(req, res) {
-                                      res.writeHead(200, {
-                                                            'Content-Type': 'text/html'
-                                                          });
-                                      res.end(htmldoc);
-                                    }
-                 ).listen(3000);
-
+app.listen(3000);
 console.log('Server running at http://localhost:3000/');
+
