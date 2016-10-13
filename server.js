@@ -1,16 +1,8 @@
-var express = require('express');
+var express = require('./config/express');
+
 var app = express();
-
-
-var htmldoc =  "<CENTER><h1>HELLO WORLD</h1>"
-             +"<p>Simple request and response page</p></CENTER>"
-
-app.use('/', function(req, res) {
-                                  res.send(htmldoc);
-                                }
-       );
-
 app.listen(3000);
+module.exports = app;
+
 console.log('Server running at http://localhost:3000/');
 
-module.exports = app;
