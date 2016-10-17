@@ -1,8 +1,10 @@
-var express = require('express'),
+var config = require('./config'),
+    express = require('express'),
     morgan = require('morgan'),
     compress = require('compression'),
     bodyParser = require('body-parser'),
-    methodOverride = require('method-override');
+    methodOverride = require('method-override'),
+    session = require('express-session');
 
 
 module.exports = function() {
@@ -29,6 +31,16 @@ module.exports = function() {
 
                               app.use(bodyParser.json());
                               app.use(methodOverride());
+                                
+                              app.use(
+                                       session(
+                                                   {
+                                                    saveUninitialized: true,
+                                                    resave: true,
+                                                    secret: config.sessionSecret
+                                                   }
+                                              )
+                                     );
 
     
                               app.set('views', './app/views');
@@ -37,6 +49,8 @@ module.exports = function() {
     
                          
                              require('../app/routes/index.server.routes.js')(app,'testArgmt')  //arguments get passed to routes.js
+                             
+                             app.use(express.static('./public'));
                           
                               return app;
                             };
