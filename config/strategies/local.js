@@ -3,30 +3,50 @@ var passport = require('passport'),
     User = require('mongoose').model('User');
 
 module.exports = function() {
-                              passport.use(new LocalStrategy(function(username, password, done) {
-                                                                                                User.findOne({
-                                                                                                                username: username
-                                                                                                             },
-                                                                                                             function(err, user) {
-                                                                                                                                  if (err) {
-                                                                                                                                            return done(err);
-                                                                                                                                          }
+                              passport.use(
+                       //  ===============passport.use start============         
+                                  
+                                  
+                                  
+    new LocalStrategy(
+                      function(username, password, done) {
+                                                            User.findOne(
+                                                                
+                                                                             {
+                                                                                username: username
+                                                                             },
 
-                                                                                                                                  if (!user) {
-                                                                                                                                                return done(null, false, {
-                                                                                                                                                                          message: 'Unknown user'
-                                                                                                                                                                        }
-                                                                                                                                                            );
-                                                                                                                                              }
-                                                                                                                                  if (!user.authenticate(password)) {
-                                                                                                                                                                        return done(null, false, {
-                                                                                                                                                                                                      message: 'Invalid password'                                                                
-                                                                                                                                                                                                 }
-                                                                                                                                                                                    );
-                                                                                                                                                                      }
 
-                                                                                                                                  return done(null, user);
-                                                                                                                                  }
-                                                                                                            );
-                                                                                              }));
+                                                                             function(err, user) {
+                                                                                                  if (err) {
+                                                                                                            return done(err);
+                                                                                                          }
+
+                                                                                                  if (!user) {
+                                                                                                                return done(null, false, {
+                                                                                                                                          message: 'Unknown user'
+                                                                                                                                        }
+                                                                                                                            );
+                                                                                                              }
+                                                                                                  if (!user.authenticate(password)) {
+                                                                                                                                        return done(null, false, {
+                                                                                                                                                                      message: 'Invalid password'                                                                
+                                                                                                                                                                 }
+                                                                                                                                                    );
+                                                                                                                                      }
+
+                                                                                                  return done(null, user);
+                                                                                                  }
+                                                                        );
+                                                          }
+                    )
+                                  
+                                  
+                                  
+                                  
+                                  
+                                  
+                                  
+                            //  ===============passport.use end============  
+                                          );
                             };
